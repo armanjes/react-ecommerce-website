@@ -4,24 +4,11 @@ import Home from "./Components/Home";
 import Products from "./Components/Products";
 import Cart from "./Components/Cart.Jsx";
 import { CartContext } from "./CartContext";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import User from "./Components/User";
 
 const App = () => {
   const [cart, setCart] = useState({});
-
-  useEffect(() => {
-    if (Object.keys(cart).length > 0) {
-      // Avoid saving an empty cart on first render
-      localStorage.setItem("cart", JSON.stringify(cart));
-    }
-  }, [cart]);
-
-  useEffect(() => {
-    const saveCart = localStorage.getItem("cart");
-    if (saveCart) {
-      setCart(JSON.parse(saveCart));
-    }
-  }, []);
 
   return (
     <>
@@ -31,6 +18,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/profile" element={<User />} />
         </Routes>
       </CartContext.Provider>
     </>
