@@ -6,7 +6,7 @@ import { CartContext } from "../CartContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { cart } = useContext(CartContext)
+  const { cart } = useContext(CartContext);
 
   return (
     <nav className="bg-indigo-600 text-white">
@@ -80,7 +80,6 @@ const Navbar = () => {
             Products
           </Link>
           <Link to="/cart" className="flex hover:text-gray-300">
-            <span className="ms-4">{cart.total}</span>
             <IoCartOutline size={24} />
           </Link>
           <Link to="/profile" className="hover:text-gray-300">

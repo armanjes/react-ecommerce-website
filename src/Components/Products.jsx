@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext";
+import { toast } from "react-toastify";
 
 const Products = () => {
   // fetching products
@@ -13,23 +14,26 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  // adding product to cart
+  // add product to cart
   const { cart, setCart } = useContext(CartContext);
   const addToCart = (product) => {
-    const _cart = {...cart}
-    if (!_cart.items) _cart.items = {}
+    const _cart = { ...cart };
+    // Check if the product already exists and is at its maximum quantity
+    if (_cart.items[product.id] >= 4) {
+      toast.error("You can add a maximum of 4 of each item!", {
+        position: "top-center",
+        autoClose: 2000,
+      });
+      return; // Stop further execution if max quantity is reached
+    }
     if (!_cart.items[product.id]) {
-      _cart.items[product.id] = 1
+      _cart.items[product.id] = 1;
     } else {
-      _cart.items[product.id] += 1
+      _cart.items[product.id] += 1;
     }
-    if (!_cart.total) {
-      _cart.total = 1
-    } else {
-      _cart.total += 1
-    }
-    setCart(_cart)
-  }
+    _cart.total += 1;
+    setCart(_cart);
+  };
 
   return (
     <section className="container mx-auto">
